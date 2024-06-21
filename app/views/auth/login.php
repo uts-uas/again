@@ -8,8 +8,8 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="my-5">
-                                <img src="<?= BURL ?>/img /login.png" alt="" width="400px">
-                                <p class="text-center "> <a href="<?= BURL ?>/auth/register">Create on Account</a></p>
+                                <img src="<?= BURL ?>/img/blogin.png" alt="" width="400px">
+
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
