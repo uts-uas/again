@@ -1,0 +1,80 @@
+1. database and table
+ 	- user
+ 	- role (admin,guru,murid)
+ 	- kelas
+ 	- absensi
+ 	
+ 	
+user
+id, username,no hp,alamat,no ktp,nisn,emai,is_role
+
+role
+id, role
+0   admin
+1   guru
+2   murid
+
+keles
+id, nama_kelas,is_user (role guru)
+
+abesensi
+id, is_kelas,is_user (role murid),absensi,created_at
+1 	A
+2 	b
+3	C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
