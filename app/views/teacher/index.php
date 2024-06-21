@@ -19,7 +19,29 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h1>JOOOSS</h1>
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <i class="fas fa-warehouse fa-3x mr-3 "></i>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Kelas</div>
+                                    <div class="text-lg mb-0 font-weight-bold text-gray-800">A</div>
+                                </div>
+
+                                <i class="fas fa-user fa-3x mr-2"></i>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Jumlah Siswa</div>
+                                    <div class="text-lg mb-0 font-weight-bold text-gray-800">Mahiru Shiina</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.container-fluid -->
+
                 </div>
                 <!-- /.container-fluid -->
 

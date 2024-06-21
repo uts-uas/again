@@ -19,7 +19,54 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h1>Rekap Absensi</h1>
+
+
+
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Tabel Rekap Absensi</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal</th>
+                                            <th>Kelas</th>
+                                            <th>Absensi</th>
+
+
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal</th>
+                                            <th>Kelas</th>
+                                            <th>Absensi</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <th>23-12-2004</th>
+                                            <th>A</th>
+
+                                            <th>
+                                                <button class="btn btn-primary">
+                                                    Lihat Absensi
+                                                </button>
+                                            </th>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
