@@ -2,21 +2,14 @@
 
 class Auth extends Controller
 {
-    public function login()
+    public function index()
     {
-        $data['title'] = 'Halaman Login';
+        $data['title'] = 'Halamaan Login';
 
-        $this->view("templates/header");
-        $this->view("auth/login");
-        $this->view("templates/footer");
-    }
+        $data['name'] = $this->model('User_model')->getUsername();
 
-    public function register()
-    {
-        $data['title'] = 'Halaman Register';
-
-        $this->view("templates/header");
-        $this->view("auth/register");
+        $this->view("templates/header", $data);
+        $this->view("auth/index", $data);
         $this->view("templates/footer");
     }
 }
