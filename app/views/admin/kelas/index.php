@@ -45,30 +45,33 @@
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nama Guru</th>
                                             <th>Kelas</th>
+                                            <th>Nama Guru</th>
                                             <th>Jumlah Siswa</th>
                                             <th>Status</th>
                                             <th>Action</th>
+
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mahiru Shiina</td>
-                                            <td>A</td>
-                                            <td>20</td>
-                                            <td><span class="badge badge-pill badge-success">Active</span></td>
-                                            <td>
-                                                <a href="" class="btn btn-warning">
-                                                    <i class="fas fa-pen-square    "></i>
-                                                </a>
-                                                <a href="" class="btn btn-danger">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($data['kelas'] as $kelas) : ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $kelas['nama_kelas'] ?></td>
+                                                <td>A</td>
+                                                <td>
+                                                    <a href="" class="btn btn-warning">
+                                                        <i class="fas fa-pen-square    "></i>
+                                                    </a>
+                                                    <a href="" class="btn btn-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
 
-                                        </tr>
+                                            </tr>
+                                            <?php $i++ ?>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
