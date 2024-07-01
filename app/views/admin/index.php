@@ -1,3 +1,4 @@
+
 <link href="" rel="stylesheet" type="text/css">
 
 <body id="page-top">
@@ -24,8 +25,12 @@
                 <!--////////////////////////////////////////////////////////////-->
                 <!--============================================================-->
 
-                <div class="container">
+                <div class="container-fluid">
+                <h1 class="h3 mb-0 text-gray-800">Welcome <?= $_SESSION['user']['username'] ?></h1>
+
                     <div class="row">
+
+                    
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
