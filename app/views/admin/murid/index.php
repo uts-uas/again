@@ -40,7 +40,7 @@
                                             <th>Kelas</th>
                                             <th>Status</th>
                                             <th>Action</th>
-
+                                        </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
@@ -57,7 +57,7 @@
                                             <tr>
                                                 <td><?= $i ?></td>
                                                 <td><?= $siswa['username'] ?></td>
-                                                <td>A</td>
+                                                <td><?= !empty($siswa['nama_kelas']) ? $siswa['nama_kelas'] : 'Belum memiliki kelas' ?></td>
                                                 <td>
                                                     <?= $siswa['is_active'] == 0 ?
                                                         '<span class="badge badge-pill badge-success">Active</span>' :
@@ -66,13 +66,12 @@
                                                 </td>
                                                 <td>
                                                     <a href="" class="btn btn-warning">
-                                                        <i class="fas fa-pen-square    "></i>
+                                                        <i class="fas fa-pen-square"></i>
                                                     </a>
                                                     <a href="" class="btn btn-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
-
                                             </tr>
                                             <?php $i++ ?>
                                         <?php endforeach ?>

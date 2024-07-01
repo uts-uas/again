@@ -57,7 +57,13 @@
                                             <tr>
                                                 <td><?= $i ?></td>
                                                 <td><?= $teacher['username'] ?></td>
-                                                <td>A</td>
+                                                <td> <?php
+                                                        if (!empty($teacher['nama_kelas'])) {
+                                                            echo $teacher['nama_kelas'];
+                                                        } else {
+                                                            echo "Belum punya kelas";
+                                                        }
+                                                        ?></td>
                                                 <td>
                                                     <?= $teacher['is_active'] == 0 ?
                                                         '<span class="badge badge-pill badge-success">Active</span>' :

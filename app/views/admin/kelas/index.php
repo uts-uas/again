@@ -38,7 +38,6 @@
                                             <th>Kelas</th>
                                             <th>Nama Guru</th>
                                             <th>Jumlah Siswa</th>
-                                            <th>Status</th>
                                             <th>Action</th>
 
                                     </thead>
@@ -48,7 +47,6 @@
                                             <th>Kelas</th>
                                             <th>Nama Guru</th>
                                             <th>Jumlah Siswa</th>
-                                            <th>Status</th>
                                             <th>Action</th>
 
                                         </tr>
@@ -59,7 +57,8 @@
                                             <tr>
                                                 <td><?= $i ?></td>
                                                 <td><?= $kelas['nama_kelas'] ?></td>
-                                                <td>A</td>
+                                                <td><?= $kelas['username'] ?></td>
+                                                <td><?= $kelas['jumlah_is_user'] ?></td>
                                                 <td>
                                                     <a href="" class="btn btn-warning">
                                                         <i class="fas fa-pen-square    "></i>
