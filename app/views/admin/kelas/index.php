@@ -19,10 +19,11 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <button class="btn btn-primary mb-3">
-                        Add Class
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
+                        Add Kelas
                     </button>
+
+                    <?php Flasher::flash() ?>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -99,10 +100,48 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+
+    <!-- add kelas -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Kelas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="namaKelas">Nama Kelas</label>
+                            <input type="text" class="form-control" name="kelas" id="namaKelas">
+                        </div>
+                        <div class="form-group">
+                            <label for="guruPengampu">Guru Pengampu</label>
+                            <select name="guru-pengampu" id="guruPengampu" class="form-control" data-none-selected-text="Pilih Guru pengampu">
+                                <option value="" hidden>Pilih Guru pengampu</option>
+                                <option value="mahiru">Mahiru</option>
+                                <option value="shiina">Shiina</option>
+                                <option value="ryoku">Ryoku</option>
+                                <option value="talim">Talim</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="muridSelect">Murid</label>
+                            <select id="muridSelect" class="selectpicker form-control" name="murid" multiple data-live-search="true" data-none-selected-text="Pilih Murid">
+                                <option value="option1">Option 1</option>
+                                <option value="option2">Option 2</option>
+                                <option value="option3">Option 3</option>
+                                <option value="option4">Option 4</option>
+                                <option value="option5">Option 5</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
