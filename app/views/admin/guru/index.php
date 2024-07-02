@@ -20,9 +20,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <button class="btn btn-primary mb-3">
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
                         Add Teacher
                     </button>
+
+                    <?php Flasher::flash() ?>
 
 
                     <!-- DataTales Example -->
@@ -97,6 +99,38 @@
 
     </div>
     <!-- End of Main Content -->
+
+    <!-- modal add -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<?= BURL ?>/admin/addGuru" method="POST">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" placeholder="Masukan username guru" name="username" required>
+                        </div>
+
+                        <div class="my-3">
+                            <label for="password" class="">Password</label>
+                            <input type="password" class="form-control" placeholder="Masukan password" name="password" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save changes" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Footer -->
     <footer class="sticky-footer bg-white">

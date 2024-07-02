@@ -38,6 +38,19 @@ class Admin extends Controller
         $this->view("templates/footer");
     }
 
+    public function addGuru()
+    {
+        if ($this->model("User_model")->addTeacher($_POST) > 0) {
+            Flasher::setFlash("success", "Guru berhasil ditambahkan");
+            Redirect::to("/admin/guru");
+        } else {
+            Flasher::setFlash("danger", "Guru gagal ditambahkan");
+            Redirect::to("/admin/guru");
+        }
+    }
+
+
+
     // page kelas
     public function kelas()
     {
@@ -62,5 +75,16 @@ class Admin extends Controller
         $this->view("templates/header", $data);
         $this->view("admin/murid/index", $data);
         $this->view("templates/footer");
+    }
+
+    public function addMurid()
+    {
+        if ($this->model("User_model")->addMurid($_POST) > 0) {
+            Flasher::setFlash("success", "murid berhasil ditambahkan");
+            Redirect::to("/admin/murid");
+        } else {
+            Flasher::setFlash("danger", "murid gagal ditambahkan");
+            Redirect::to("/admin/murid");
+        }
     }
 }

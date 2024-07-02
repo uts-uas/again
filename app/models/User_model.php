@@ -55,6 +55,18 @@ class User_model
         return $this->db->resultAll();
     }
 
+    public function addMurid($data)
+    {
+        $query = "INSERT INTO $this->user (username, password, is_role, is_active) VALUES (:username, :password, :is_role, :is_active)";
+        $this->db->query($query);
+        $this->db->bind('username', $data['username']);
+        $this->db->bind('password', $data['password']);
+        $this->db->bind('is_role', 1);
+        $this->db->bind('is_active', 0);
+
+        return $this->db->rowCount();
+    }
+
     // teacher
     public function countAllTeacher()
     {
@@ -69,5 +81,16 @@ class User_model
                       LEFT JOIN $this->kelas ON user.id = kelas.is_user
                       WHERE user.is_role = 2");
         return $this->db->resultAll();
+    }
+    public function addTeacher($data)
+    {
+        $query = "INSERT INTO $this->user (username, password, is_role, is_active) VALUES (:username, :password, :is_role, :is_active)";
+        $this->db->query($query);
+        $this->db->bind('username', $data['username']);
+        $this->db->bind('password', $data['password']);
+        $this->db->bind('is_role', 2); // Set is_role to 2
+        $this->db->bind('is_active', 0); // Set is_active to 0
+
+        return $this->db->rowCount();
     }
 }
