@@ -1,4 +1,3 @@
-
 <link href="" rel="stylesheet" type="text/css">
 
 <body id="page-top">
@@ -26,11 +25,12 @@
                 <!--============================================================-->
 
                 <div class="container-fluid">
-                <h1 class="h3 mb-0 text-gray-800">Welcome <?= $_SESSION['user']['username'] ?></h1>
+                    <?php Flasher::flash() ?>
+                    <h1 class="h3 mb-0 text-gray-800">Welcome <?= $_SESSION['user']['username'] ?></h1>
 
-                <!-- card -->
-                <?php require_once("partikels/card.php") ?>
-                  
+                    <!-- card -->
+                    <?php require_once("partikels/card.php") ?>
+
                 </div>
                 <!--============================================================-->
                 <!--\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
