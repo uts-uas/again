@@ -49,6 +49,17 @@ class Admin extends Controller
         }
     }
 
+    public function editGuru()
+    {
+        if ($this->model("User_model")->editTeacher($_POST) > 0) {
+            Flasher::setFlash("success", "guru berhasil diupdate");
+            Redirect::to("/admin/guru");
+        } else {
+            Flasher::setFlash("danger", "guru gagal diupdate");
+            Redirect::to("/admin/guru");
+        }
+    }
+
 
 
     // page kelas

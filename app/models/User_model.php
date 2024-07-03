@@ -95,6 +95,18 @@
             return $this->db->resultAll();
         }
 
+        public function editTeacher($data)
+        {
+            $query = "UPDATE $this->user SET username = :username, password = :password, is_active = :is_active WHERE id = :id";
+            $this->db->query($query);
+            $this->db->bind('id', $data['id']);
+            $this->db->bind('username', $data['username']);
+            $this->db->bind('password', $data['password']);
+            $this->db->bind('is_active', $data['is_active']);
+
+            return $this->db->rowCount();
+        }
+
 
         public function addTeacher($data)
         {

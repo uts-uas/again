@@ -130,6 +130,46 @@
         </div>
     </div>
 
+    <?php foreach ($data['guru'] as $teacher) : ?>
+        <!-- edit modal -->
+        <div class="modal fade" id="editModalStudent<?= $teacher['id'] ?>" tabindex="-1" aria-labelledby="editModalStudentLabel<?= $teacher['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalStudentLabel<?= $teacher['id'] ?>">Edit Murid</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?= BURL ?>/admin/editGuru" method="POST">
+                            <input type="hidden" id="edit-id" name="id" value="<?= $teacher['id'] ?>">
+                            <div>
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="edit-username" name="username" value="<?= $teacher['username'] ?>" required>
+                            </div>
+                            <div class="my-3">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="edit-password" name="password" value="<?= $teacher['password'] ?>" required>
+                            </div>
+                            <div class="my-3">
+                                <label for="is_active">Status</label>
+                                <select name="is_active" id="edit-is_active" class="form-control">
+                                    <option value="0" <?= $teacher['is_active'] == 0 ? 'selected' : '' ?>>Active</option>
+                                    <option value="1" <?= $teacher['is_active'] == 1 ? 'selected' : '' ?>>Non Active</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
+
 
     <!-- Footer -->
     <footer class="sticky-footer bg-white">
