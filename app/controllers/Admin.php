@@ -101,6 +101,17 @@ class Admin extends Controller
         }
     }
 
+    public function editMurid()
+    {
+        if ($this->model("User_model")->editMurid($_POST) > 0) {
+            Flasher::setFlash("success", "Murid berhasil diupdate");
+            Redirect::to("/admin/murid");
+        } else {
+            Flasher::setFlash("danger", "Murid gagal diupdate");
+            Redirect::to("/admin/murid");
+        }
+    }
+
     // page absensi
     public function absensi()
     {

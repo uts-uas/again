@@ -73,14 +73,13 @@
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-warning">
-                                                        <i class="fas fa-pen-square    "></i>
-                                                    </a>
-                                                    <a href="" class="btn btn-danger">
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalStudent<?= $teacher['id'] ?>">
+                                                        <i class="fas fa-pen-square"></i>
+                                                    </div>
+                                                    <div class="btn btn-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
+                                                    </div>
                                                 </td>
-
                                             </tr>
                                             <?php $i++ ?>
                                         <?php endforeach ?>

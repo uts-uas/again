@@ -66,12 +66,12 @@
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-warning">
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalStudent<?= $siswa['id'] ?>">
                                                         <i class="fas fa-pen-square"></i>
-                                                    </a>
-                                                    <a href="" class="btn btn-danger">
+                                                    </div>
+                                                    <div class="btn btn-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>
@@ -93,7 +93,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Teacher</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Murid</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -119,24 +119,43 @@
                 </div>
             </div>
 
-
-
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
+            <?php foreach ($data['siswa'] as $siswa) : ?>
+                <!-- edit modal -->
+                <div class="modal fade" id="editModalStudent<?= $siswa['id'] ?>" tabindex="-1" aria-labelledby="editModalStudentLabel<?= $siswa['id'] ?>" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalStudentLabel<?= $siswa['id'] ?>">Edit Murid</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?= BURL ?>/admin/editMurid" method="POST">
+                                    <input type="hidden" id="edit-id" name="id" value="<?= $siswa['id'] ?>">
+                                    <div>
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="edit-username" name="username" value="<?= $siswa['username'] ?>" required>
+                                    </div>
+                                    <div class="my-3">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="edit-password" name="password" value="<?= $siswa['password'] ?>" required>
+                                    </div>
+                                    <div class="my-3">
+                                        <label for="is_active">Status</label>
+                                        <select name="is_active" id="edit-is_active" class="form-control">
+                                            <option value="0" <?= $siswa['is_active'] == 0 ? 'selected' : '' ?>>Active</option>
+                                            <option value="1" <?= $siswa['is_active'] == 1 ? 'selected' : '' ?>>Non Active</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" value="Save changes">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endforeach ?>
 </body>
