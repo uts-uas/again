@@ -35,4 +35,22 @@ class Kelas_model
                       GROUP BY kelas.id, kelas.nama_kelas, user.username");
         return $this->db->resultAll();
     }
+
+    public function getUsersWithRoleTwoNotInKelas()
+    {
+        $this->db->query("SELECT id, username FROM $this->user WHERE is_role = 2 AND id NOT IN (SELECT is_user FROM $this->kelas)");
+        return $this->db->resultAll();
+    }
+
+
+
+    public function addKelas($data)
+    {
+
+        $this->db->query("INSERT INTO $this->kelas (nama_kelas, is_user) VALUES (:nama_kelas, :guru_pengampu)");
+        $this->db->bind('nama_kelas', $data['kelas']);
+        $this->db->bind('guru_pengampu', $data['guru-pengampu']);
+
+        return $this->db->rowCount();
+    }
 }

@@ -57,12 +57,25 @@ class Admin extends Controller
         $data = [
             'title' => 'Halaman Kelas',
             'kelas' => $this->model("Kelas_model")->getAllKelas(),
+            'usersRoleTwo' => $this->model("Kelas_model")->getUsersWithRoleTwoNotInKelas(),
         ];
 
         $this->view("templates/header", $data);
         $this->view("admin/kelas/index", $data);
         $this->view("templates/footer");
     }
+
+    public function addKelas()
+    {
+        if ($this->model("Kelas_model")->addKelas($_POST) > 0) {
+            Flasher::setFlash("success", "Kelas berhasil ditambahkan");
+            Redirect::to("/admin/kelas");
+        } else {
+            Flasher::setFlash("danger", "Kelas gagal ditambahkan");
+            Redirect::to("/admin/kelas");
+        }
+    }
+
 
     // page murid
     public function murid()
@@ -85,6 +98,32 @@ class Admin extends Controller
         } else {
             Flasher::setFlash("danger", "murid gagal ditambahkan");
             Redirect::to("/admin/murid");
+        }
+    }
+
+    // page absensi
+    public function absensi()
+    {
+        $data = [
+            'title' => 'Halaman Absensi',
+            'absensi' => $this->model("Absensi_model")->getAbsensiTableData(),
+            'noregisclass' => $this->model("Absensi_model")->getUnregisteredClasses(),
+            'noregisstudent' => $this->model("Absensi_model")->getUnregisteredStudents(),
+        ];
+
+        $this->view("templates/header", $data);
+        $this->view("admin/absensi/index", $data);
+        $this->view("templates/footer");
+    }
+
+    public function addAbsensi()
+    {
+        if ($this->model("Absensi_model")->addAbsensi($_POST) > 0) {
+            Flasher::setFlash("success", "absensi berhasil ditambahkan");
+            Redirect::to("/admin/absensi");
+        } else {
+            Flasher::setFlash("danger", "absensi gagal ditambahkan");
+            Redirect::to("/admin/absensi");
         }
     }
 }
