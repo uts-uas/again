@@ -64,7 +64,7 @@ class Admin extends Controller
     {
         $userModel = $this->model("User_model");
 
-        // Hapus guru berdasarkan ID
+
         $deleted = $userModel->deleteGuru($id);
 
         if ($deleted > 0) {
@@ -75,6 +75,7 @@ class Admin extends Controller
 
         Redirect::to("/admin/guru");
     }
+
 
 
 
