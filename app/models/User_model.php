@@ -59,7 +59,7 @@
         public function getAbsensiDetailsByUserId($userId)
         {
             $this->db->query("
-        SELECT absensi.id, user.username, kelas.nama_kelas 
+        SELECT absensi.id, user.username, kelas.nama_kelas, absensi.absensi 
         FROM absensi 
         JOIN kelas ON absensi.is_kelas = kelas.id 
         JOIN user ON absensi.is_user = user.id
@@ -69,6 +69,22 @@
             return $this->db->resultAll();
         }
 
+        public function updateAbsensiStatus($id, $status)
+        {
+            $query = "UPDATE absensi SET absensi = :status WHERE id = :id";
+            $this->db->query($query);
+            $this->db->bind('status', $status);
+            $this->db->bind('id', $id);
+            return $this->db->execute();
+        }
+
+        public function getAbsensiCreatedAt($id)
+        {
+            $query = "SELECT created_at FROM absensi WHERE id = :id";
+            $this->db->query($query);
+            $this->db->bind('id', $id);
+            return $this->db->single()['created_at'];
+        }
 
 
 

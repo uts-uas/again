@@ -39,6 +39,23 @@ class Teacher extends Controller
     }
 
 
+    public function editAbsensi()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $absensiStatuses = $_POST['status-absensi'];
+            $userModel = $this->model('User_model');
+
+            foreach ($absensiStatuses as $id => $status) {
+                $userModel->updateAbsensiStatus($id, $status);
+            }
+
+            // Flash message or redirect as needed
+            Flasher::setFlash('Absensi updated successfully', 'success');
+            header('Location: ' . BURL . '/teacher/absensi');
+            exit();
+        }
+    }
+
     // page rekap
     public function rekap()
     {
