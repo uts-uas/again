@@ -60,6 +60,22 @@ class Admin extends Controller
         }
     }
 
+    public function deleteGuru($id)
+    {
+        $userModel = $this->model("User_model");
+
+        // Hapus guru berdasarkan ID
+        $deleted = $userModel->deleteGuru($id);
+
+        if ($deleted > 0) {
+            Flasher::setFlash("success", "Guru berhasil dihapus");
+        } else {
+            Flasher::setFlash("danger", "Gagal menghapus guru");
+        }
+
+        Redirect::to("/admin/guru");
+    }
+
 
 
     // page kelas

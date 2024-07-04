@@ -142,4 +142,27 @@
 
             return $this->db->rowCount();
         }
+
+        public function deleteGuru($id)
+        {
+            
+            $this->db->query("SELECT * FROM $this->kelas WHERE is_user = :user_id");
+            $this->db->bind('user_id', $id);
+            $result = $this->db->rowCount();
+
+            if ($result > 0) {
+              
+                $query_kelas = "DELETE FROM $this->kelas WHERE is_user = :user_id";
+                $this->db->query($query_kelas);
+                $this->db->bind('user_id', $id);
+                $this->db->execute();
+            }
+
+           
+            $query_user = "DELETE FROM $this->user WHERE id = :user_id AND is_role = 2";
+            $this->db->query($query_user);
+            $this->db->bind('user_id', $id);
+
+            return $this->db->rowCount();
+        }
     }

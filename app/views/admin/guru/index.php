@@ -76,9 +76,11 @@
                                                     <div class="btn btn-warning" data-toggle="modal" data-target="#editModalStudent<?= $teacher['id'] ?>">
                                                         <i class="fas fa-pen-square"></i>
                                                     </div>
-                                                    <div class="btn btn-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </div>
+                                                    <form action="<?= BURL ?>/admin/deleteGuru/<?= $teacher['id'] ?>" method="post" class="d-inline">
+                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus guru ini?')">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>
