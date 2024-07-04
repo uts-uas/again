@@ -22,13 +22,14 @@ class Absensi_model
 
     public function getAbsensiTableData()
     {
-        $this->db->query("SELECT kelas.nama_kelas, COUNT(absensi.is_user) AS jumlah_siswa
-                          FROM $this->absensi
-                          LEFT JOIN $this->kelas ON absensi.is_kelas = kelas.id
-                          GROUP BY absensi.is_kelas");
+        $this->db->query("SELECT kelas.id, kelas.nama_kelas, COUNT(absensi.is_user) AS jumlah_siswa
+                          FROM $this->kelas
+                          LEFT JOIN $this->absensi ON absensi.is_kelas = kelas.id
+                          GROUP BY kelas.id");
 
         return $this->db->resultAll();
     }
+
 
     public function getUnregisteredClasses()
     {

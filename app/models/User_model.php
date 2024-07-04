@@ -79,6 +79,29 @@
             return $this->db->rowCount();
         }
 
+        public function deleteMurid($id)
+        {
+            // Cek apakah user dengan ID tertentu terkait dengan data absensi
+            $this->db->query("SELECT * FROM absensi WHERE is_user = :user_id");
+            $this->db->bind('user_id', $id);
+            $result = $this->db->rowCount();
+
+            if ($result > 0) {
+                // Jika terkait dengan data absensi, hapus data absensi terlebih dahulu
+                $query_absensi = "DELETE FROM absensi WHERE is_user = :user_id";
+                $this->db->query($query_absensi);
+                $this->db->bind('user_id', $id);
+                $this->db->execute();
+            }
+
+            // Setelah itu, hapus user dari tabel user
+            $query_user = "DELETE FROM user WHERE id = :user_id AND is_role = 1";
+            $this->db->query($query_user);
+            $this->db->bind('user_id', $id);
+
+            return $this->db->rowCount();
+        }
+
         // teacher
         public function countAllTeacher()
         {

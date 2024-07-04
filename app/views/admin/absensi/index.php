@@ -52,23 +52,23 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <?php $i = 1; ?>
                                         <?php foreach ($data['absensi'] as $absensi) : ?>
-                                            <tr>
-                                                <td><?= $i ?></td>
-                                                <td><?= $absensi['nama_kelas'] ?></td>
-                                                <td><?= $absensi['jumlah_siswa']; ?></td>
-                                                <td>
-                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalAbsensi<?= $absensi['id'] ?>">
-                                                        <i class="fas fa-pen-square"></i>
-                                                    </div>
-                                                    <div class="btn btn-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php $i++ ?>
-                                        <?php endforeach ?>
+                                            <?php if ($absensi['jumlah_siswa'] > 0) : ?>
+                                                <tr>
+                                                    <td><?= $absensi['id']; ?></td>
+                                                    <td><?= $absensi['nama_kelas']; ?></td>
+                                                    <td><?= $absensi['jumlah_siswa']; ?></td>
+                                                    <td>
+                                                        <div class="btn btn-warning" data-toggle="modal" data-target="#editModalAbsensi<?= $absensi['id']; ?>">
+                                                            <i class="fas fa-pen-square"></i>
+                                                        </div>
+                                                        <div class="btn btn-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -81,49 +81,56 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Add Kelas Absensi -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Kelas</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Add Kelas Absensi -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Kelas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="<?= BURL ?>/admin/addAbsensi" method="POST">
+                        <div class="form-group">
+                            <label for="kelas">Kelas</label>
+                            <select name="kelas" id="kelas" class="form-control">
+                                <option value="" hidden>Pilih murid</option>
+                                <?php foreach ($data['noregisclass'] as $kelas) : ?>
+                                    <option value="<?= $kelas['id']; ?>"><?= $kelas['nama_kelas']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        <div class="modal-body">
-                            <form action="<?= BURL ?>/admin/addAbsensi" method="POST">
-                                <div class="form-group">
-                                    <label for="kelas">Kelas</label>
-                                    <select name="kelas" id="kelas" class="form-control">
-                                        <option value="" hidden>Pilih murid</option>
-                                        <?php foreach ($data['noregisclass'] as $kelas) : ?>
-                                            <option value="<?= $kelas['id']; ?>"><?= $kelas['nama_kelas']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="murid">Pilih murid</label>
-                                    <select name="murid[]" id="murid" class="form-control" multiple>
-                                        <option value="" hidden>Pilih murid</option>
-                                        <?php foreach ($data['noregisstudent'] as $murid) : ?>
-                                            <option value="<?= $murid['id']; ?>"><?= $murid['username']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="submit" class="btn btn-primary" value="Save changes" />
-                                </div>
-
-                            </form>
-
+                        <div class="form-group">
+                            <label for="murid">Pilih murid</label>
+                            <select name="murid[]" id="murid" class="form-control" multiple>
+                                <option value="" hidden>Pilih murid</option>
+                                <?php foreach ($data['noregisstudent'] as $murid) : ?>
+                                    <option value="<?= $murid['id']; ?>"><?= $murid['username']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                    </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save changes" />
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
+        </div>
+    </div>
+
 
 
 

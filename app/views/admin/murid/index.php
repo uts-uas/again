@@ -69,9 +69,9 @@
                                                     <div class="btn btn-warning" data-toggle="modal" data-target="#editModalStudent<?= $siswa['id'] ?>">
                                                         <i class="fas fa-pen-square"></i>
                                                     </div>
-                                                    <div class="btn btn-danger">
+                                                    <a href="<?= BURL ?>/admin/deleteMurid/<?= $siswa['id'] ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus murid ini?')">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </div>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>

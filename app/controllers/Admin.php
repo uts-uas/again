@@ -134,6 +134,22 @@ class Admin extends Controller
         }
     }
 
+    public function deleteMurid($id)
+    {
+        $userModel = $this->model("User_model");
+
+        // Hapus murid berdasarkan ID
+        $deleted = $userModel->deleteMurid($id);
+
+        if ($deleted > 0) {
+            Flasher::setFlash("success", "Murid berhasil dihapus");
+        } else {
+            Flasher::setFlash("danger", "Gagal menghapus murid");
+        }
+
+        Redirect::to("/admin/murid");
+    }
+
     // page absensi
     public function absensi()
     {
