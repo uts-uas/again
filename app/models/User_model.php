@@ -36,6 +36,42 @@
 
             return $this->db->result();
         }
+
+        public function getKelasByUserId($userId)
+        {
+            $this->db->query("SELECT nama_kelas FROM kelas WHERE is_user = :user_id");
+            $this->db->bind('user_id', $userId);
+            return $this->db->single();
+        }
+
+        public function countAbsensiByUserId($userId)
+        {
+            $this->db->query("
+        SELECT COUNT(absensi.id) AS total_absensi 
+        FROM absensi 
+        JOIN kelas ON absensi.is_kelas = kelas.id 
+        WHERE kelas.is_user = :user_id
+    ");
+            $this->db->bind('user_id', $userId);
+            return $this->db->single();
+        }
+
+        public function getAbsensiDetailsByUserId($userId)
+        {
+            $this->db->query("
+        SELECT absensi.id, user.username, kelas.nama_kelas 
+        FROM absensi 
+        JOIN kelas ON absensi.is_kelas = kelas.id 
+        JOIN user ON absensi.is_user = user.id
+        WHERE kelas.is_user = :user_id
+    ");
+            $this->db->bind('user_id', $userId);
+            return $this->db->resultAll();
+        }
+
+
+
+
         // End Login
 
         //student
@@ -54,6 +90,7 @@
                         WHERE user.is_role = 1");
             return $this->db->resultAll();
         }
+
 
         public function addMurid($data)
         {

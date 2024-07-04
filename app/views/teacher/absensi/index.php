@@ -20,54 +20,45 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-
-
+                    <?php Flasher::flash(); ?>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabel Absensi</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                    <form action="<?= BURL ?>/teacher/editAbsensi" method="post">
+                        <!-- Tabel absensi -->
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($data['absensi'])) : ?>
+                                    <?php foreach ($data['absensi'] as $index => $absensi) : ?>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas</th>
-                                            <th>action</th>
-
-
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>Kelas</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <th>Mahiru shiina</th>
-                                            <th>A</th>
-                                            <th>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">ALFA</option>
-                                                    <option value="">HADIR</option>
+                                            <td><?= $index + 1 ?></td>
+                                            <td><?= $absensi['username'] ?></td>
+                                            <td><?= $absensi['nama_kelas'] ?></td>
+                                            <td>
+                                                <select name="status-absensi[<?= $absensi['id'] ?>]" class="form-control">
+                                                    <option value="0">ALFA</option>
+                                                    <option value="1">HADIR</option>
                                                 </select>
-                                            </th>
-
-
-
+                                            </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">Tidak ada data absensi</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Update Absensi</button>
+                    </form>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -91,27 +82,5 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>

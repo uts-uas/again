@@ -13,14 +13,12 @@ class Auth extends Controller
 
     public function login()
     {
-      
         if (empty($_POST['username']) || empty($_POST['password'])) {
             Flasher::setFlash("danger", "Masukkan username dan password terlebih dahulu");
             Redirect::to("/auth");
             return;
         }
-    
-        
+
         if ($this->model("User_model")->authByUsername($_POST) > 0) {
             $user = $this->model("User_model")->getUserByUsername($_POST);
             if ($user) {
@@ -30,7 +28,7 @@ class Auth extends Controller
                     'is_role' => $user['is_role'],
                     'login' => true,
                 ];
-                
+
                 Flasher::setFlash("success", "Login berhasil");
                 if ($user['is_role'] == '0') {
                     Redirect::to("/admin");
@@ -48,8 +46,6 @@ class Auth extends Controller
             Redirect::to("/auth");
         }
     }
-    
-    
 
     public function logout()
     {
@@ -58,5 +54,4 @@ class Auth extends Controller
 
         Redirect::to("/auth");
     }
-    
 }
