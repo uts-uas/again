@@ -63,9 +63,6 @@
                                                     <div class="btn btn-warning" data-toggle="modal" data-target="#editModalKelas<?= $kelas['id'] ?>">
                                                         <i class="fas fa-pen-square"></i>
                                                     </div>
-                                                    <div class="btn btn-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>

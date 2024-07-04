@@ -62,9 +62,7 @@
                                                         <div class="btn btn-warning" data-toggle="modal" data-target="#editModalAbsensi<?= $absensi['id']; ?>">
                                                             <i class="fas fa-pen-square"></i>
                                                         </div>
-                                                        <div class="btn btn-danger">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             <?php endif; ?>
@@ -130,8 +128,4 @@
             </div>
         </div>
     </div>
-
-
-
-
 </body>
