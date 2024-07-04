@@ -53,4 +53,14 @@ class Kelas_model
 
         return $this->db->rowCount();
     }
+
+    public function editKelas($data)
+    {
+        $query = "UPDATE $this->kelas SET nama_kelas = :nama_kelas, is_user = :is_user WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind('id', $data['id']);
+        $this->db->bind('nama_kelas', $data['kelas']);
+        $this->db->bind('is_user', $data['guru-pengampu']);
+        return $this->db->rowCount();
+    }
 }

@@ -59,12 +59,12 @@
                                                 <td><?= $absensi['nama_kelas'] ?></td>
                                                 <td><?= $absensi['jumlah_siswa']; ?></td>
                                                 <td>
-                                                    <a href="" class="btn btn-warning">
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalAbsensi<?= $absensi['id'] ?>">
                                                         <i class="fas fa-pen-square"></i>
-                                                    </a>
-                                                    <a href="" class="btn btn-danger">
+                                                    </div>
+                                                    <div class="btn btn-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>
@@ -125,20 +125,6 @@
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Absensi Kelas</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
 
 </body>

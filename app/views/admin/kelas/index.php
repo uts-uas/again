@@ -60,12 +60,12 @@
                                                 <td><?= $kelas['username'] ?></td>
                                                 <td><?= $kelas['jumlah_is_user'] ?></td>
                                                 <td>
-                                                    <a href="" class="btn btn-warning">
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalKelas<?= $kelas['id'] ?>">
                                                         <i class="fas fa-pen-square"></i>
-                                                    </a>
-                                                    <a href="" class="btn btn-danger">
+                                                    </div>
+                                                    <div class="btn btn-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>
@@ -133,10 +133,51 @@
                             <input type="submit" class="btn btn-primary" value="Save changes">
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Edit Kelas Modals -->
+    <?php foreach ($data['kelas'] as $kelas) : ?>
+        <div class="modal fade" id="editModalKelas<?= $kelas['id'] ?>" tabindex="-1" aria-labelledby="editModalLabel<?= $kelas['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel<?= $kelas['id'] ?>">Edit Kelas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?= BURL ?>/admin/editKelas" method="POST">
+                            <input type="hidden" name="id" value="<?= $kelas['id'] ?>">
+                            <div class="form-group">
+                                <label for="editNamaKelas<?= $kelas['id'] ?>">Nama Kelas</label>
+                                <input type="text" class="form-control" name="kelas" id="editNamaKelas<?= $kelas['id'] ?>" value="<?= $kelas['nama_kelas'] ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editGuruPengampu<?= $kelas['id'] ?>">Guru Pengampu</label>
+                                <select name="guru-pengampu" id="editGuruPengampu<?= $kelas['id'] ?>" class="form-control" required>
+                                    <?php if (empty($data['usersRoleTwo'])) : ?>
+                                        <option disabled>Tidak ada guru yang belum terhubung ke kelas</option>
+                                    <?php else : ?>
+                                        <option value="" hidden>Pilih Guru pengampu</option>
+                                        <?php foreach ($data['usersRoleTwo'] as $user) : ?>
+                                            <option value="<?= $user['id'] ?>"><?= $user['username'] ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
 </body>

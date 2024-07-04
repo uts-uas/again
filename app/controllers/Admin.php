@@ -87,6 +87,17 @@ class Admin extends Controller
         }
     }
 
+    public function editKelas()
+    {
+        if ($this->model("Kelas_model")->editKelas($_POST) > 0) {
+            Flasher::setFlash("success", "Kelas berhasil diupdate");
+            Redirect::to("/admin/kelas");
+        } else {
+            Flasher::setFlash("danger", "Kelas gagal diupdate");
+            Redirect::to("/admin/kelas");
+        }
+    }
+
 
     // page murid
     public function murid()
