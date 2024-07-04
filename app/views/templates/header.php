@@ -22,4 +22,5 @@
     <!-- Custom styles for this template-->
     <link href="<?= BURL ?>/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?= BURL ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+   
 </head>

@@ -50,11 +50,13 @@ class Teacher extends Controller
             }
 
             // Flash message or redirect as needed
-            Flasher::setFlash('Absensi updated successfully', 'success');
-            header('Location: ' . BURL . '/teacher/absensi');
+            Flasher::setFlash("success", "Absensi berasil di buat");
+            Redirect::to("/teacher/absensi");
             exit();
         }
     }
+
+
 
     // page rekap
     public function rekap()
@@ -64,5 +66,23 @@ class Teacher extends Controller
         $this->view("templates/header", $data);
         $this->view("teacher/rekap/index");
         $this->view("templates/footer");
+    }
+
+
+    public function print()
+    {
+
+
+
+        if (isset($_SESSION['user']['id'])) {
+            $userId = $_SESSION['user']['id'];
+            $userModel = $this->model('User_model');
+            $data['absensi'] = $userModel->getAbsensiDetailsByUserId($userId);
+        } else {
+            $data['absensi'] = [];
+        }
+
+
+        $this->view("teacher/print/index", $data);
     }
 }
