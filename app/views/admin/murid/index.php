@@ -20,10 +20,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <button class="btn btn-primary mb-3">
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
                         Add Student
                     </button>
 
+                    <?php Flasher::flash() ?>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -40,7 +41,7 @@
                                             <th>Kelas</th>
                                             <th>Status</th>
                                             <th>Action</th>
-
+                                        </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
@@ -52,21 +53,29 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mahiru Shiina</td>
-                                            <td>A</td>
-                                            <td><span class="badge badge-pill badge-success">Active</span></td>
-                                            <td>
-                                                <a href="" class="btn btn-warning">
-                                                    <i class="fas fa-pen-square    "></i>
-                                                </a>
-                                                <a href="" class="btn btn-danger">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($data['siswa'] as $siswa) : ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $siswa['username'] ?></td>
+                                                <td><?= !empty($siswa['nama_kelas']) ? $siswa['nama_kelas'] : 'Belum memiliki kelas' ?></td>
+                                                <td>
+                                                    <?= $siswa['is_active'] == 0 ?
+                                                        '<span class="badge badge-pill badge-success">Active</span>' :
+                                                        '<span class="badge badge-pill badge-danger">Non Active</span>'
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalStudent<?= $siswa['id'] ?>">
+                                                        <i class="fas fa-pen-square"></i>
+                                                    </div>
+                                                    <a href="<?= BURL ?>/admin/deleteMurid/<?= $siswa['id'] ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus murid ini?')">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php $i++ ?>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -79,23 +88,74 @@
             </div>
             <!-- End of Main Content -->
 
-
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <!-- add modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Murid</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
+                        <div class="modal-body">
+                            <form action="<?= BURL ?>/admin/addMurid" method="POST">
+                                <div>
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" placeholder="Masukan username murid" name="username" required>
+                                </div>
+
+                                <div class="my-3">
+                                    <label for="password" class="">Password</label>
+                                    <input type="password" class="form-control" placeholder="Masukan password" name="password" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-primary" value="Save changes" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <?php foreach ($data['siswa'] as $siswa) : ?>
+                <!-- edit modal -->
+                <div class="modal fade" id="editModalStudent<?= $siswa['id'] ?>" tabindex="-1" aria-labelledby="editModalStudentLabel<?= $siswa['id'] ?>" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalStudentLabel<?= $siswa['id'] ?>">Edit Murid</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?= BURL ?>/admin/editMurid" method="POST">
+                                    <input type="hidden" id="edit-id" name="id" value="<?= $siswa['id'] ?>">
+                                    <div>
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="edit-username" name="username" value="<?= $siswa['username'] ?>" required>
+                                    </div>
+                                    <div class="my-3">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="edit-password" name="password" value="<?= $siswa['password'] ?>" required>
+                                    </div>
+                                    <div class="my-3">
+                                        <label for="is_active">Status</label>
+                                        <select name="is_active" id="edit-is_active" class="form-control">
+                                            <option value="0" <?= $siswa['is_active'] == 0 ? 'selected' : '' ?>>Active</option>
+                                            <option value="1" <?= $siswa['is_active'] == 1 ? 'selected' : '' ?>>Non Active</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" value="Save changes">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
 </body>

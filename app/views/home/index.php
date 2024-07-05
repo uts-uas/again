@@ -39,10 +39,18 @@
             </li>
 
             <li class="nav-item no-arrow mx-1">
+                <a class="nav-link text-primary font-weight-bold" href="#dev" id="aboutLink">
+                    Developer
+                </a>
+            </li>
+
+            <li class="nav-item no-arrow mx-1">
                 <a class="nav-link text-primary font-weight-bold" href="#about" id="aboutLink">
                     About
                 </a>
             </li>
+
+
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -72,6 +80,54 @@
         </div>
     </section>
 
+    <section class="min-vh-100 d-flex align-items-center" id="dev">
+        <div class="container text-center">
+            <h1 class="mb-5 font-weight-bold">Developer Magang</h1>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="card mx-2 card-custom" data-aos="fade-up">
+                        <img class="card-img-top image-size" src="<?= BURL ?>/img/ketutagung.jpeg" alt="Ketut Agung">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Ketut Agung</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="card mx-2 card-custom" data-aos="fade-up">
+                        <img class="card-img-top image-size" src="<?= BURL ?>/img/sandhi.jpeg" alt="Sandhi">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Shandy</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="card mx-2 card-custom" data-aos="fade-up">
+                        <img class="card-img-top image-size" src="<?= BURL ?>/img/anugrah.jpeg" alt="Anugrah">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Anugrah</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="card mx-2 card-custom" data-aos="fade-up">
+                        <img class="card-img-top image-size" src="<?= BURL ?>/img/jack.jpeg" alt="Jack">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Gung Mandala</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="card mx-2 card-custom" data-aos="fade-up">
+                        <img class="card-img-top image-size" src="<?= BURL ?>/img/rafi.jpeg" alt="Rafi">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Rafi</h5>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="min-vh-100" style="margin-top: 10rem;" id="about">
         <div class="position-relative h-100">
 

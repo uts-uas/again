@@ -39,6 +39,7 @@
                  <a class="collapse-item" href="<?= BURL ?>/admin/guru">Manajement Guru</a>
                  <a class="collapse-item" href="<?= BURL ?>/admin/kelas">Manajement Kelas</a>
                  <a class="collapse-item" href="<?= BURL ?>/admin/murid">Manajement Murid</a>
+                 <a class="collapse-item" href="<?= BURL ?>/admin/absensi">Manajement Absensi</a>
              </div>
          </div>
      </li>

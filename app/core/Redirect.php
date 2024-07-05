@@ -1,6 +1,6 @@
 <?php
 
-class Redirect
+class Redirect 
 {
     public static function to($path)
     {

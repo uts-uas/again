@@ -20,9 +20,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <button class="btn btn-primary mb-3">
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
                         Add Teacher
                     </button>
+
+                    <?php Flasher::flash() ?>
 
 
                     <!-- DataTales Example -->
@@ -52,21 +54,37 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mahiru Shiina</td>
-                                            <td>A</td>
-                                            <td><span class="badge badge-pill badge-success">Active</span></td>
-                                            <td>
-                                                <a href="" class="btn btn-warning">
-                                                    <i class="fas fa-pen-square    "></i>
-                                                </a>
-                                                <a href="" class="btn btn-danger">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($data['guru'] as $teacher) : ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $teacher['username'] ?></td>
+                                                <td> <?php
+                                                        if (!empty($teacher['nama_kelas'])) {
+                                                            echo $teacher['nama_kelas'];
+                                                        } else {
+                                                            echo "Belum punya kelas";
+                                                        }
+                                                        ?></td>
+                                                <td>
+                                                    <?= $teacher['is_active'] == 0 ?
+                                                        '<span class="badge badge-pill badge-success">Active</span>' :
+                                                        '<span class="badge badge-pill badge-danger">Non Active</span>'
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalStudent<?= $teacher['id'] ?>">
+                                                        <i class="fas fa-pen-square"></i>
+                                                    </div>
+                                                    <form action="<?= BURL ?>/admin/deleteGuru/<?= $teacher['id'] ?>" method="post" class="d-inline">
+                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus guru ini?')">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <?php $i++ ?>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -83,43 +101,77 @@
     </div>
     <!-- End of Main Content -->
 
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Absensi kelas</span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- modal add -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                <div class="modal-body">
+                    <form action="<?= BURL ?>/admin/addGuru" method="POST">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" placeholder="Masukan username guru" name="username" required>
+                        </div>
+
+                        <div class="my-3">
+                            <label for="password" class="">Password</label>
+                            <input type="password" class="form-control" placeholder="Masukan password" name="password" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save changes" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <?php foreach ($data['guru'] as $teacher) : ?>
+        <!-- edit modal -->
+        <div class="modal fade" id="editModalStudent<?= $teacher['id'] ?>" tabindex="-1" aria-labelledby="editModalStudentLabel<?= $teacher['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalStudentLabel<?= $teacher['id'] ?>">Edit Murid</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?= BURL ?>/admin/editGuru" method="POST">
+                            <input type="hidden" id="edit-id" name="id" value="<?= $teacher['id'] ?>">
+                            <div>
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="edit-username" name="username" value="<?= $teacher['username'] ?>" required>
+                            </div>
+                            <div class="my-3">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="edit-password" name="password" value="<?= $teacher['password'] ?>" required>
+                            </div>
+                            <div class="my-3">
+                                <label for="is_active">Status</label>
+                                <select name="is_active" id="edit-is_active" class="form-control">
+                                    <option value="0" <?= $teacher['is_active'] == 0 ? 'selected' : '' ?>>Active</option>
+                                    <option value="1" <?= $teacher['is_active'] == 1 ? 'selected' : '' ?>>Non Active</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
+
+
+
 </body>
