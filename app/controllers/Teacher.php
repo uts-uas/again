@@ -7,7 +7,7 @@ class Teacher extends Controller
         $data['title'] = 'Halaman Teacher';
 
         if (isset($_SESSION['user']['id'])) {
-            $userId = $_SESSION['user']['id']; 
+            $userId = $_SESSION['user']['id'];
             $userModel = $this->model('User_model');
             $data['kelas'] = $userModel->getKelasByUserId($userId);
             $data['total_absensi'] = $userModel->countAbsensiByUserId($userId)['total_absensi'];
@@ -51,7 +51,7 @@ class Teacher extends Controller
 
             // Flash message or redirect as needed
             Flasher::setFlash("success", "Absensi berasil di buat");
-            Redirect::to("/teacher/absensi");
+            Redirect::to("/teacher/rekap");
             exit();
         }
     }
