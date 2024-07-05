@@ -64,7 +64,7 @@ class Admin extends Controller
     {
         $userModel = $this->model("User_model");
 
-
+        // Call deleteGuru method from User_model
         $deleted = $userModel->deleteGuru($id);
 
         if ($deleted > 0) {
