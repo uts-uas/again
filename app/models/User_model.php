@@ -134,20 +134,18 @@
 
         public function deleteMurid($id)
         {
-            // Cek apakah user dengan ID tertentu terkait dengan data absensi
             $this->db->query("SELECT * FROM absensi WHERE is_user = :user_id");
             $this->db->bind('user_id', $id);
             $result = $this->db->rowCount();
 
             if ($result > 0) {
-                // Jika terkait dengan data absensi, hapus data absensi terlebih dahulu
                 $query_absensi = "DELETE FROM absensi WHERE is_user = :user_id";
                 $this->db->query($query_absensi);
                 $this->db->bind('user_id', $id);
                 $this->db->execute();
             }
 
-            // Setelah itu, hapus user dari tabel user
+            
             $query_user = "DELETE FROM user WHERE id = :user_id AND is_role = 1";
             $this->db->query($query_user);
             $this->db->bind('user_id', $id);
@@ -190,28 +188,24 @@
             $this->db->query($query);
             $this->db->bind('username', $data['username']);
             $this->db->bind('password', $data['password']);
-            $this->db->bind('is_role', 2); // Set is_role to 2
-            $this->db->bind('is_active', 0); // Set is_active to 0
+            $this->db->bind('is_role', 2); 
+            $this->db->bind('is_active', 0); 
 
             return $this->db->rowCount();
         }
 
         public function deleteGuru($id)
         {
-            // Cek apakah guru dengan ID tertentu terkait dengan data kelas
-            $this->db->query("SELECT * FROM kelas WHERE is_user = :user_id");
             $this->db->bind('user_id', $id);
             $resultKelas = $this->db->single();
 
             if ($resultKelas) {
-                // Jika terkait dengan data kelas, cek apakah kelas tersebut terkait dengan data absensi
                 $kelasId = $resultKelas['id'];
                 $this->db->query("SELECT * FROM absensi WHERE is_kelas = :kelas_id");
                 $this->db->bind('kelas_id', $kelasId);
                 $resultAbsensi = $this->db->single();
 
                 if ($resultAbsensi) {
-                    // Jika terkait dengan data absensi, hapus data absensi terlebih dahulu
                     $this->db->query("DELETE FROM absensi WHERE is_kelas = :kelas_id");
                     $this->db->bind('kelas_id', $kelasId);
                     $this->db->execute();
@@ -223,7 +217,6 @@
                 $this->db->execute();
             }
 
-            // Setelah itu, hapus guru dari tabel user
             $this->db->query("DELETE FROM user WHERE id = :user_id AND is_role = 2");
             $this->db->bind('user_id', $id);
 
