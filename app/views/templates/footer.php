@@ -16,6 +16,7 @@
  <script src="<?= BURL ?>/js/demo/chart-pie-demo.js"></script>
 
  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 
  <script src="<?= BURL ?>/js/demo/datatables-demo.js"></script>
  <script src="<?= BURL ?>/vendor/datatables/jquery.dataTables.min.js"></script>
@@ -24,7 +25,20 @@
      AOS.init();
  </script>
 
+ <script>
+     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+         anchor.addEventListener('click', function(e) {
+             e.preventDefault();
+             document.querySelector(this.getAttribute('href')).scrollIntoView({
+                 behavior: 'smooth'
+             });
+         });
+     });
+ </script>
 
+ <script>
+     $('select').selectpicker();
+ </script>
 
 
 

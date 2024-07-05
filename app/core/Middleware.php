@@ -1,10 +1,11 @@
 <?php
 
-class Middleware
+class Middleware 
 {
     public static function auth()
     {
-        if ($_SESSION['user']['login'] != true) {
+        if($_SESSION['user']['login'] != true)
+        {
             Redirect::to("/auth");
         }
     }

@@ -19,10 +19,11 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <button class="btn btn-primary mb-3">
-                        Add Class
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">
+                        Add Kelas
                     </button>
+
+                    <?php Flasher::flash() ?>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -38,37 +39,34 @@
                                             <th>Kelas</th>
                                             <th>Nama Guru</th>
                                             <th>Jumlah Siswa</th>
-                                            <th>Status</th>
                                             <th>Action</th>
-
+                                        </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nama Guru</th>
                                             <th>Kelas</th>
+                                            <th>Nama Guru</th>
                                             <th>Jumlah Siswa</th>
-                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mahiru Shiina</td>
-                                            <td>A</td>
-                                            <td>20</td>
-                                            <td><span class="badge badge-pill badge-success">Active</span></td>
-                                            <td>
-                                                <a href="" class="btn btn-warning">
-                                                    <i class="fas fa-pen-square    "></i>
-                                                </a>
-                                                <a href="" class="btn btn-danger">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-
-                                        </tr>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($data['kelas'] as $kelas) : ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $kelas['nama_kelas'] ?></td>
+                                                <td><?= $kelas['username'] ?></td>
+                                                <td><?= $kelas['jumlah_is_user'] ?></td>
+                                                <td>
+                                                    <div class="btn btn-warning" data-toggle="modal" data-target="#editModalKelas<?= $kelas['id'] ?>">
+                                                        <i class="fas fa-pen-square"></i>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php $i++ ?>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -97,27 +95,86 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- Add Kelas Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Kelas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                <div class="modal-body">
+                    <form action="<?= BURL ?>/admin/addKelas" method="POST">
+                        <div class="form-group">
+                            <label for="namaKelas">Nama Kelas</label>
+                            <input type="text" class="form-control" name="kelas" id="namaKelas" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guruPengampu">Guru Pengampu</label>
+                            <select name="guru-pengampu" id="guruPengampu" class="form-control" required>
+                                <?php if (empty($data['usersRoleTwo'])) : ?>
+                                    <option disabled>Tidak ada guru yang belum terhubung ke kelas</option>
+                                <?php else : ?>
+                                    <option value="" hidden>Pilih Guru pengampu</option>
+                                    <?php foreach ($data['usersRoleTwo'] as $user) : ?>
+                                        <option value="<?= $user['id'] ?>"><?= $user['username'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save changes">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Edit Kelas Modals -->
+    <?php foreach ($data['kelas'] as $kelas) : ?>
+        <div class="modal fade" id="editModalKelas<?= $kelas['id'] ?>" tabindex="-1" aria-labelledby="editModalLabel<?= $kelas['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel<?= $kelas['id'] ?>">Edit Kelas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?= BURL ?>/admin/editKelas" method="POST">
+                            <input type="hidden" name="id" value="<?= $kelas['id'] ?>">
+                            <div class="form-group">
+                                <label for="editNamaKelas<?= $kelas['id'] ?>">Nama Kelas</label>
+                                <input type="text" class="form-control" name="kelas" id="editNamaKelas<?= $kelas['id'] ?>" value="<?= $kelas['nama_kelas'] ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editGuruPengampu<?= $kelas['id'] ?>">Guru Pengampu</label>
+                                <select name="guru-pengampu" id="editGuruPengampu<?= $kelas['id'] ?>" class="form-control" required>
+                                    <?php if (empty($data['usersRoleTwo'])) : ?>
+                                        <option disabled>Tidak ada guru yang belum terhubung ke kelas</option>
+                                    <?php else : ?>
+                                        <option value="" hidden>Pilih Guru pengampu</option>
+                                        <?php foreach ($data['usersRoleTwo'] as $user) : ?>
+                                            <option value="<?= $user['id'] ?>"><?= $user['username'] ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save changes">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
 </body>

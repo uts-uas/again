@@ -1,28 +1,62 @@
-<body id="page-top">
+<!-- views/teacher/absensi/index.php -->
 
+<body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <?php require_once(__DIR__ . "/../partikels/sidebar.php") ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <?php require_once(__DIR__ . "/../partikels/topbar.php") ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h1>Absensi</h1>
+                    <?php Flasher::flash(); ?>
+
+                    <!-- DataTales Example -->
+                    <form action="<?= BURL ?>/teacher/editAbsensi" method="post">
+                        <!-- Tabel absensi -->
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($data['absensi'])) : ?>
+                                    <?php foreach ($data['absensi'] as $index => $absensi) : ?>
+                                        <tr>
+                                            <td><?= $index + 1 ?></td>
+                                            <td><?= $absensi['username'] ?></td>
+                                            <td><?= $absensi['nama_kelas'] ?></td>
+                                            <td>
+                                                <select name="status-absensi[<?= $absensi['id'] ?>]" class="form-control">
+                                                    <option value="0" <?= isset($absensi['absensi']) && $absensi['absensi'] == 0 ? 'selected' : '' ?>>ALFA</option>
+                                                    <option value="1" <?= isset($absensi['absensi']) && $absensi['absensi'] == 1 ? 'selected' : '' ?>>HADIR</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">Tidak ada data absensi</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Update Absensi</button>
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
@@ -35,34 +69,8 @@
                 </div>
             </footer>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
