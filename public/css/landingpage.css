@@ -7,3 +7,24 @@ html {
 .main-text {
   font-family: "Caveat";
 }
+
+.card-img-top {
+  width: 100%; /* Ensure the image covers the card width */
+  height: 200px; /* Set a fixed height for the images */
+  object-fit: cover; /* Ensure the image covers the container without distortion */
+}
+
+.image-size {
+  width: 250px; /* Set your desired width */
+  height: 250px; /* Set your desired height */
+  object-fit: cover; /* This ensures the image covers the area without distortion */
+}
+.card-custom {
+  width: 180px; /* Set a width for the card to ensure uniformity */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth animation for transform and shadow */
+}
+.card-custom:hover {
+  transform: scale(1.1); /* Enlarge the card on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+  cursor: pointer;
+}
