@@ -7,7 +7,7 @@ class Teacher extends Controller
         $data['title'] = 'Halaman Teacher';
 
         if (isset($_SESSION['user']['id'])) {
-            $userId = $_SESSION['user']['id']; // Ambil user_id dari sesi
+            $userId = $_SESSION['user']['id']; 
             $userModel = $this->model('User_model');
             $data['kelas'] = $userModel->getKelasByUserId($userId);
             $data['total_absensi'] = $userModel->countAbsensiByUserId($userId)['total_absensi'];
