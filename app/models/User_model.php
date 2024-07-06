@@ -157,7 +157,7 @@
         // teacher
         public function countAllTeacher()
         {
-            $this->db->query("SELECT * FROM $this->user where is_role = 1");
+            $this->db->query("SELECT * FROM $this->user where is_role = 2");
             return $this->db->rowCount();
         }
 

@@ -2,6 +2,10 @@
 
 class Teacher extends Controller
 {
+    public function __construct()
+    {
+        Middleware::auth();
+    }
     public function index()
     {
         $data['title'] = 'Halaman Teacher';
