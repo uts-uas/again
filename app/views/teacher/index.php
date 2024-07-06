@@ -5,6 +5,9 @@
             <div id="content">
                 <?php require_once("partikels/topbar.php") ?>
                 <div class="container-fluid">
+
+                    <?php Flasher::flash() ?>
+
                     <div class="card my-3">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">

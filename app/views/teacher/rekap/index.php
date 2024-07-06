@@ -22,6 +22,7 @@
 
 
 
+                    <?php Flasher::flash() ?>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">

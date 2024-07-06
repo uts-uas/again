@@ -146,7 +146,7 @@
                 $this->db->execute();
             }
 
-            
+
             $query_user = "DELETE FROM user WHERE id = :user_id AND is_role = 1";
             $this->db->query($query_user);
             $this->db->bind('user_id', $id);
@@ -157,7 +157,7 @@
         // teacher
         public function countAllTeacher()
         {
-            $this->db->query("SELECT * FROM $this->user where is_role = 1");
+            $this->db->query("SELECT * FROM $this->user where is_role = 2");
             return $this->db->rowCount();
         }
 
@@ -189,39 +189,43 @@
             $this->db->query($query);
             $this->db->bind('username', $data['username']);
             $this->db->bind('password', $data['password']);
-            $this->db->bind('is_role', 2); 
-            $this->db->bind('is_active', 0); 
+            $this->db->bind('is_role', 2);
+            $this->db->bind('is_active', 0);
 
             return $this->db->rowCount();
         }
 
         public function deleteGuru($id)
         {
-            $this->db->bind('user_id', $id);
-            $resultKelas = $this->db->single();
+            try {
 
-            if ($resultKelas) {
-                $kelasId = $resultKelas['id'];
-                $this->db->query("SELECT * FROM absensi WHERE is_kelas = :kelas_id");
-                $this->db->bind('kelas_id', $kelasId);
-                $resultAbsensi = $this->db->single();
+                $this->db->query("SELECT * FROM kelas WHERE is_user = :user_id");
+                $this->db->bind('user_id', $id);
+                $resultKelas = $this->db->single();
 
-                if ($resultAbsensi) {
+                if ($resultKelas) {
+                    $kelasId = $resultKelas['id'];
+
+
                     $this->db->query("DELETE FROM absensi WHERE is_kelas = :kelas_id");
                     $this->db->bind('kelas_id', $kelasId);
                     $this->db->execute();
+
+
+                    $this->db->query("DELETE FROM kelas WHERE is_user = :user_id");
+                    $this->db->bind('user_id', $id);
+                    $this->db->execute();
                 }
 
-                // Setelah itu, hapus data kelas
-                $this->db->query("DELETE FROM kelas WHERE is_user = :user_id");
+
+                $this->db->query("DELETE FROM user WHERE id = :user_id AND is_role = 2");
                 $this->db->bind('user_id', $id);
                 $this->db->execute();
+
+                return $this->db->rowCount();
+            } catch (PDOException $e) {
+
+                die($e->getMessage());
             }
-
-            $this->db->query("DELETE FROM user WHERE id = :user_id AND is_role = 2");
-            $this->db->bind('user_id', $id);
-
-            $this->db->execute();
-            return $this->db->rowCount();
         }
     }

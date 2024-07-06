@@ -25,7 +25,7 @@ class Database
         }
     }
 
-    public function bind($param, $value, $type =  null)
+    public function bind($param, $value, $type = null)
     {
         if (is_null($type)) {
             switch (true) {
@@ -58,30 +58,46 @@ class Database
 
     public function execute()
     {
-        $this->stmt->execute();
+        if ($this->stmt) {
+            $this->stmt->execute();
+        } else {
+            throw new Exception("Statement is null. Call query() before execute().");
+        }
     }
 
     public function resultAll()
     {
-        $this->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($this->stmt) {
+            $this->execute();
+            return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return [];
     }
 
     public function result()
     {
-        $this->execute();
-        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        if ($this->stmt) {
+            $this->execute();
+            return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
     }
 
     public function rowCount()
     {
-        $this->execute();
-        return $this->stmt->rowCount();
+        if ($this->stmt) {
+            $this->execute();
+            return $this->stmt->rowCount();
+        }
+        return 0;
     }
 
     public function single()
     {
-        $this->execute();
-        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        if ($this->stmt) {
+            $this->execute();
+            return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
     }
 }

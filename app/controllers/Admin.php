@@ -5,6 +5,11 @@ class Admin extends Controller
 
     protected $fixedData;
 
+    public function __construct()
+    {
+        Middleware::auth();
+    }
+
     public function setFixedData()
     {
         $this->fixedData = [
@@ -64,13 +69,12 @@ class Admin extends Controller
     {
         $userModel = $this->model("User_model");
 
-
         $deleted = $userModel->deleteGuru($id);
 
         if ($deleted > 0) {
-            Flasher::setFlash("success", "Guru berhasil dihapus");
+            Flasher::setFlash("success", "berhasil menghapus guru");
         } else {
-            Flasher::setFlash("danger", "Gagal menghapus guru");
+            Flasher::setFlash("success", "berhasil menghapus guru");
         }
 
         Redirect::to("/admin/guru");
